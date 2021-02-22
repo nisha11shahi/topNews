@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learn Flexbox</title>
+    <style>
+      @media (min-width: 468px) {
+        .container-1 {
+          display: flex;
+          /* align-items: flex-end;
+        align-items: flex-start;
+        align-items: stretch; 
+        flex-direction: column;*/
+        }
+        .container-2 {
+          display: flex;
+          justify-content: right;
+        }
+        .container-3 {
+          display: flex;
+          justify-content: right;
+          flex-wrap: wrap;
+        }
+      }
+
+      .container-1 div,
+      .container-2 div,
+      .container-3 div {
+        border: 1px solid black;
+        padding: 10px;
+      }
+      .container-2-box {
+        flex-basis: 25%;
+      }
+      .container-3-box {
+        flex-basis: 14%;
+      }
+      .box-1 {
+        flex: 2;
+        order: 2;
+      }
+      .box-2 {
+        flex: 1;
+        order: 1;
+      }
+      .box-3 {
+        flex: 1;
+        order: 3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="heading">
+      <h3>NY Times</h3>
+    </div>
+    <div class="newsItems"></div>
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        const newsInfo = () => {
+          fetch(`https://api.nytimes.com/svc/mostpopular/v2/emailed/7.json?api-key=AluQp2cQVnl451M6tJ9eAS6pscwumUzL
+`)
+            .then((response) => response.json())
+            .then((data) => {
+              console.log(data);
+              data.results.forEach((result) => {
+                document.querySelector(
+                  ".newsItems"
+                ).innerHTML += `<div class ="newsItem">
+                  <a href="${result.url}"><div class="newItemTitle"> ${result.title} </div></a>
+                  <div class="newItemDescription"> ${result.abstract} </div>
+                  </div>`;
+              });
+            });
+        };
+        newsInfo();
+      });
+    </script>
+  </body>
+</html>
