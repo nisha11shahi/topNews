@@ -14,7 +14,7 @@
     <script>
       window.addEventListener("DOMContentLoaded", () => {
         const newsInfo = () => {
-          fetch(`https://api.nytimes.com/svc/mostpopular/v2/emailed/7.json?api-key=AluQp2cQVnl451M6tJ9eAS6pscwumUzL
+          fetch(`https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=AluQp2cQVnl451M6tJ9eAS6pscwumUzL
 `)
             .then((response) => response.json())
             .then((data) => {
