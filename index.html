@@ -18,12 +18,51 @@
         justify-content: space-between;
         position: sticky;
         top: 0;
-        background-color: white;
+        background-color: rgba(0, 51, 102, 0.99);
+        color: whitesmoke;
         padding: 15px;
+
+        border-top: 4px solid #c20017;
+      }
+      .footer {
+        background-color: rgba(0, 51, 102, 0.99);
+        color: whitesmoke;
+        padding: 10px;
+        font-size: 0.8rem;
+        font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+          "Lucida Sans", Arial, sans-serif;
+        text-align: end;
+        position: sticky;
+        bottom: 0;
+      }
+      .heading > h1 {
+        text-shadow: 3px 2px 5px red;
+      }
+      .newsItemTitle {
+        color: #036;
+        font-weight: 600;
+        font-family: Optima, Helvetica, sans-serif;
+      }
+      .newsItemDescription {
+        font-family: sans-serif;
+        font-size: 0.9rem;
+      }
+      .newsItems {
+        margin-top: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
       }
       .heading h1 {
         font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
           "Lucida Sans", Arial, sans-serif;
+      }
+      .publishedDate {
+        padding-top: 5px;
+        font-family: sans-serif;
+        font-size: 0.8rem;
+        color: grey;
+        font-style: italic;
       }
       .dateTime {
         font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
@@ -32,11 +71,17 @@
       .newsItem {
         padding: 10px;
         border: 1px solid rgb(190, 179, 179);
-        border-radius: 10px;
         margin-bottom: 10px;
         background-color: white;
         transition-duration: 400ms;
         cursor: pointer;
+        width: 100%;
+        margin-right: 10px;
+      }
+      @media screen and (min-width: 600px) {
+        .newsItem {
+          width: 25%;
+        }
       }
       .newsItem > a {
         text-decoration: none;
@@ -47,9 +92,6 @@
       .newsItem:hover {
         background-color: #ddd;
       }
-      .newsItem:nth-of-type(1) {
-        margin-top: 15px;
-      }
     </style>
   </head>
   <body>
@@ -58,22 +100,40 @@
       <span id="datetime"></span>
     </div>
     <div class="newsItems"></div>
+    <div class="footer">
+      Copyright (c) 2021 The New York Times Company. All Rights Reserved.
+    </div>
     <script>
       window.addEventListener("DOMContentLoaded", () => {
         const getNewsInfo = () => {
           fetch(`https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=AluQp2cQVnl451M6tJ9eAS6pscwumUzL
-`)
+      `)
             .then((response) => response.json())
             .then((data) => {
               console.log(data);
               data.results.forEach((result) => {
+                var hours = Math.ceil(
+                  Math.abs(new Date() - new Date(result.updated)) / 3600000
+                );
                 document.querySelector(
                   ".newsItems"
                 ).innerHTML += `<div class ="newsItem">
-                  <a href="${result.url}"><div class="newsItemTitle"> ${result.title} </div></a>
-                  <div class="newsItemDescription"> ${result.abstract} </div>
-                  </div>`;
+                        <a href="${result.url}"><div class="newsItemTitle"> ${
+                  result.title
+                } </div></a> <div class ="publishedDate">${
+                  hours == 1 ? "hours ago" : "hour ago"
+                }</div>
+                        <div class="newsItemDescription">${
+                          result.abstract
+                        } </div><div class="newsItemDescription">${
+                  result.abstract
+                } </div>
+                        </div>`;
               });
+              // var currentDate = new Date();
+              // var newDate = new Date(data.results.published_date);
+              // var difference = Math.abs(currentDate - newDate);
+              // console.log(data.results.published_date, newDate, difference);
             });
         };
         const updateDateTime = () => {
