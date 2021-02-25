@@ -120,14 +120,12 @@
                 ).innerHTML += `<div class ="newsItem">
                         <a href="${result.url}"><div class="newsItemTitle"> ${
                   result.title
-                } </div></a> <div class ="publishedDate">${
-                  hours == 1 ? "hours ago" : "hour ago"
+                } </div></a> <div class ="publishedDate">${hours} ${
+                  hours == 1 ? "hour ago" : "hours ago"
                 }</div>
                         <div class="newsItemDescription">${
                           result.abstract
-                        } </div><div class="newsItemDescription">${
-                  result.abstract
-                } </div>
+                        } </div>
                         </div>`;
               });
               // var currentDate = new Date();
