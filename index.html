@@ -5,15 +5,62 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Top News</title>
+    <style>
+      * {
+        margin: 0;
+      }
+      body {
+        background-color: #eee;
+      }
+      .heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        background-color: white;
+        padding: 15px;
+      }
+      .heading h1 {
+        font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+          "Lucida Sans", Arial, sans-serif;
+      }
+      .dateTime {
+        font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+          "Lucida Sans", Arial, sans-serif;
+      }
+      .newsItem {
+        padding: 10px;
+        border: 1px solid rgb(190, 179, 179);
+        border-radius: 10px;
+        margin-bottom: 10px;
+        background-color: white;
+        transition-duration: 400ms;
+        cursor: pointer;
+      }
+      .newsItem > a {
+        text-decoration: none;
+      }
+      .newsItemDescription {
+        margin-top: 5px;
+      }
+      .newsItem:hover {
+        background-color: #ddd;
+      }
+      .newsItem:nth-of-type(1) {
+        margin-top: 15px;
+      }
+    </style>
   </head>
   <body>
     <div class="heading">
-      <h3>NY Times</h3>
+      <h1>News Today</h1>
+      <span id="datetime"></span>
     </div>
     <div class="newsItems"></div>
     <script>
       window.addEventListener("DOMContentLoaded", () => {
-        const newsInfo = () => {
+        const getNewsInfo = () => {
           fetch(`https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=AluQp2cQVnl451M6tJ9eAS6pscwumUzL
 `)
             .then((response) => response.json())
@@ -23,13 +70,20 @@
                 document.querySelector(
                   ".newsItems"
                 ).innerHTML += `<div class ="newsItem">
-                  <a href="${result.url}"><div class="newItemTitle"> ${result.title} </div></a>
-                  <div class="newItemDescription"> ${result.abstract} </div>
+                  <a href="${result.url}"><div class="newsItemTitle"> ${result.title} </div></a>
+                  <div class="newsItemDescription"> ${result.abstract} </div>
                   </div>`;
               });
             });
         };
-        newsInfo();
+        const updateDateTime = () => {
+          var dt = new Date();
+          document.getElementById("datetime").innerHTML = dt.toLocaleString();
+          setTimeout(updateDateTime, 1000);
+        };
+
+        getNewsInfo();
+        updateDateTime();
       });
     </script>
   </body>
