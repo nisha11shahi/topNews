@@ -116,7 +116,9 @@
                 );
                 document.querySelector(
                   ".newsItems"
-                ).innerHTML += `<div class ="newsItem">
+                ).innerHTML += `<div class ="newsItem" onClick = "location.href = '${
+                  result.url
+                }'">
                         <a href="${result.url}"><div class="newsItemTitle"> ${
                   result.title
                 } </div></a> <div class ="publishedDate">${hours} ${
