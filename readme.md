@@ -8,4 +8,4 @@ Technology Used:
 - CSS
 - JavaScript
 
-API Used: [NY Times] (https://developer.nytimes.com/)
+API Used: [NY Times](https://developer.nytimes.com/)
