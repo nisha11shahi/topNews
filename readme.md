@@ -7,3 +7,5 @@ Technology Used:
 - HTML
 - CSS
 - JavaScript
+
+API Used: [NY Times] (https://developer.nytimes.com/)
